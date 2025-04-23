@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import {ButtonColor, ButtonVariant} from './get-shared-button-style';
 import {ButtonProps} from './button';
 import {ButtonSize} from './button-size';
+import ignore from "ignore";
 
 export interface ButtonGroupProps {
   children: React.ReactNode[];
@@ -52,6 +53,7 @@ export function ButtonGroup({
     if (React.isValidElement(button)) {
       const active = isActive(button.props.value);
       const adjustedColor = active ? 'primary' : color;
+
       return React.cloneElement<ButtonProps>(button as any, {
         color: active ? 'primary' : color,
         variant,
