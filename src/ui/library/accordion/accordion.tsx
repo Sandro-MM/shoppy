@@ -219,14 +219,7 @@ export function AccordionItem(props: AccordionItemProps) {
           )}
         >
           {chevronPosition === 'left' && chevron}
-          {startIcon &&
-            cloneElement(startIcon, {
-              size: 'md',
-              className: clsx(
-                startIcon.props.className,
-                disabled ? 'text-disabled' : 'text-muted',
-              ),
-            })}
+
           <div className="flex-auto overflow-hidden overflow-ellipsis">
             <div className={labelClassName} data-testid="accordion-label">
               {label}

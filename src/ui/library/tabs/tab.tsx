@@ -1,8 +1,8 @@
 import React, {JSXElementConstructor, ReactNode, useContext} from 'react';
 import clsx from 'clsx';
-import {useFocusManager} from '@react-aria/focus';
-import {LinkProps} from 'react-router';
+
 import {TabContext} from '@ui/tabs/tabs-context';
+import {useFocusManager} from "@react-aria/focus";
 
 export interface TabProps {
   className?: string;
@@ -11,9 +11,9 @@ export interface TabProps {
   isDisabled?: boolean;
   padding?: string;
   elementType?: 'button' | 'a' | JSXElementConstructor<any>;
-  to?: LinkProps['to'];
-  relative?: LinkProps['relative'];
-  replace?: LinkProps['replace'];
+  to?: ['to'];
+  relative?: ['relative'];
+  replace?: ['replace'];
   width?: string;
   height?: string;
 }
