@@ -1,3 +1,4 @@
+'use client'
 import React, {useRef} from 'react';
 import {useCollator} from '@ui/i18n/use-collator';
 

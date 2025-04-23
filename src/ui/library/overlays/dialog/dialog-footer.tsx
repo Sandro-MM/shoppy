@@ -1,3 +1,4 @@
+'use client'
 import React, {ReactNode} from 'react';
 import clsx from 'clsx';
 import {DialogSize} from './dialog';

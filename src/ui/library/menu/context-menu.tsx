@@ -1,3 +1,4 @@
+'use client'
 import React, {ReactElement, useEffect} from 'react';
 import {VirtualElement} from '@floating-ui/react-dom';
 import {ListBoxChildren, ListboxProps} from '@ui/forms/listbox/types';

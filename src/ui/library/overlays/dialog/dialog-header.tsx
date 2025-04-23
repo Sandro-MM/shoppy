@@ -1,3 +1,4 @@
+'use client'
 import React, {ReactElement, ReactNode, useContext} from 'react';
 import clsx from 'clsx';
 import {DialogContext} from './dialog-context';

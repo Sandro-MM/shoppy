@@ -1,72 +1,83 @@
-'use client'
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {applyThemeToDom} from '@ui/themes/utils/apply-theme-to-dom';
+'use client';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { applyThemeToDom } from '@ui/themes/utils/apply-theme-to-dom';
 import {
   ThemeId,
   ThemeSelectorContext,
   ThemeSelectorContextValue,
 } from '@ui/themes/theme-selector-context';
-import {useSettings} from '@ui/settings/use-settings';
-import {useCookie} from '@ui/utils/hooks/use-cookie';
-import {useBootstrapDataStore} from '@ui/bootstrap-data/bootstrap-data-store';
-import {usePreferredColorScheme} from '@ui/themes/use-preferred-color-scheme';
-import {themeEl} from '@ui/root-el';
-
-const STORAGE_KEY = 'be-active-theme';
+import { useBootstrapDataStore } from '@ui/bootstrap-data/bootstrap-data-store';
+import { usePreferredColorScheme } from '@ui/themes/use-preferred-color-scheme';
+import { themeEl } from '@ui/root-el';
 
 interface ThemeProviderProps {
-  children: any;
+  children: React.ReactNode;
 }
-export function ThemeProvider({children}: ThemeProviderProps) {
-  const settings = useSettings();
+
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  console.log('🔄 ThemeProvider: Render');
+
+  // ✅ 1. Run all hooks unconditionally
   const preferredColorScheme = usePreferredColorScheme();
   const data = useBootstrapDataStore(s => s.data);
-  const allThemes = data.themes;
+  const allThemes = data?.themes ?? [];
 
-  const [cookieThemeId, setSelectedThemeId] = useCookie(STORAGE_KEY);
   const [forcedThemeId, setForceThemeId] = useState<ThemeId | null>(null);
-  const selectedThemeId = forcedThemeId ?? cookieThemeId;
 
   const selectThemeTemporarily = useCallback((themeId: ThemeId | null) => {
+    console.log('🕹️ selectThemeTemporarily called:', themeId);
     setForceThemeId(themeId);
   }, []);
 
   const resolveTheme = useCallback(
-    (themeId: string | number) => {
-      // set theme based on user preference
-      if (themeId == 0 || themeId === 'system') {
-        return allThemes.find(t =>
-          preferredColorScheme === 'light' ? t.default_light : t.default_dark,
-        );
-      }
+      (themeId: string | number | null) => {
+        console.log('🧠 resolveTheme called with:', themeId);
 
-      if (themeId === 'light' || themeId === 'dark') {
-        return allThemes.find(t => t.default_light === (themeId === 'light'));
-      }
+        if (themeId === 0 || themeId === 'system' || themeId === null) {
+          const found = allThemes.find(t =>
+              preferredColorScheme === 'light' ? t.default_light : t.default_dark,
+          );
+          console.log('🔍 system default resolved to:', found);
+          return found;
+        }
 
-      return allThemes.find(t => t.id == themeId);
-    },
-    [allThemes, preferredColorScheme],
+        if (themeId === 'light' || themeId === 'dark') {
+          const found = allThemes.find(t => t.default_light === (themeId === 'light'));
+          console.log(`🔍 '${themeId}' resolved to:`, found);
+          return found;
+        }
+
+        const found = allThemes.find(t => t.id == themeId);
+        console.log('🔍 themeId resolved to:', found);
+        return found;
+      },
+      [allThemes, preferredColorScheme],
   );
 
-  let selectedTheme = selectedThemeId
-    ? resolveTheme(selectedThemeId)
-    : resolveTheme(settings.themes?.default_id ?? 0);
+  // ✅ 2. After hooks, decide logic with fallback
+  const isHydrated = data?.themes?.length > 0;
 
-  if (!selectedTheme) {
-    selectedTheme = allThemes[0]!;
-  }
+  const selectedTheme = useMemo(() => {
+    const theme = resolveTheme(forcedThemeId);
+    return (
+        theme ??
+        allThemes.find(t =>
+            preferredColorScheme === 'light' ? t.default_light : t.default_dark,
+        ) ??
+        allThemes[0]
+    );
+  }, [resolveTheme, forcedThemeId, allThemes, preferredColorScheme]);
 
-  // if selected theme is different then the one that was set
-  // with server render, set new css variables, this will only
-  // happen if user has not selected theme manually and default theme is set to "system"
   useEffect(() => {
+    if (!selectedTheme) return;
+
     const currentThemeId = themeEl.dataset.themeId;
-    if (selectedTheme && `${selectedTheme.id}` !== `${currentThemeId}`) {
+    console.log('🌈 Applying theme. Current:', currentThemeId, '→ New:', selectedTheme.id);
+
+    if (`${selectedTheme.id}` !== `${currentThemeId}`) {
       applyThemeToDom(selectedTheme);
     }
-    // only apply theme if id has changed
-  }, [selectedTheme.id]);
+  }, [selectedTheme]);
 
   const contextValue: ThemeSelectorContextValue = useMemo(() => {
     return {
@@ -76,22 +87,21 @@ export function ThemeProvider({children}: ThemeProviderProps) {
       selectTheme: id => {
         const theme = resolveTheme(id);
         if (theme) {
-          setSelectedThemeId(`${theme.id}`);
+          console.log('🎯 Theme selected by user:', theme);
+          setForceThemeId(theme.id);
           applyThemeToDom(theme);
         }
       },
     };
-  }, [
-    allThemes,
-    selectedTheme,
-    setSelectedThemeId,
-    resolveTheme,
-    selectThemeTemporarily,
-  ]);
+  }, [allThemes, selectedTheme, resolveTheme, selectThemeTemporarily]);
+  if (!isHydrated) {
+    console.warn('⏳ ThemeProvider: bootstrap not hydrated yet.');
+    return null;
+  }
 
   return (
-    <ThemeSelectorContext.Provider value={contextValue}>
-      {children}
-    </ThemeSelectorContext.Provider>
+      <ThemeSelectorContext.Provider value={contextValue}>
+        {children}
+      </ThemeSelectorContext.Provider>
   );
 }

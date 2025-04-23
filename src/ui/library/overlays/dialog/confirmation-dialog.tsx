@@ -1,3 +1,4 @@
+'use client'
 import React, {ReactNode} from 'react';
 import {Button} from '@ui/buttons/button';
 import {ErrorOutlineIcon} from '@ui/icons/material/ErrorOutline';

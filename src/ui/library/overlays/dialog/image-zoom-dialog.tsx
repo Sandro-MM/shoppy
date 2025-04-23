@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {useDialogContext} from './dialog-context';
 import {Dialog} from './dialog';

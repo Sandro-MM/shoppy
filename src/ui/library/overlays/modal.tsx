@@ -1,3 +1,4 @@
+'use client'
 import { forwardRef } from 'react';
 import {AnimatePresence, motion as m} from 'motion/react';
 import { OverlayProps } from './overlay-props';

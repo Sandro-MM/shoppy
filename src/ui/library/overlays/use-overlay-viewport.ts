@@ -1,3 +1,4 @@
+'use client'
 import {useViewportSize} from '@react-aria/utils';
 
 export function useOverlayViewport(): Record<string, string> {

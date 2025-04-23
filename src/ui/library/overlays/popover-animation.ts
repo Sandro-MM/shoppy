@@ -1,3 +1,4 @@
+'use client'
 import {HTMLMotionProps} from 'framer-motion';
 
 export const PopoverAnimation: Pick<

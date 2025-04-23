@@ -1,3 +1,4 @@
+'use client'
 import {motion} from 'motion/react';
 import {forwardRef} from 'react';
 import {FocusScope} from '@react-aria/focus';

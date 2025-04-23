@@ -1,3 +1,4 @@
+'use client'
 import {motion as m} from 'motion/react';
 import clsx from 'clsx';
 import {ComponentPropsWithoutRef} from 'react';

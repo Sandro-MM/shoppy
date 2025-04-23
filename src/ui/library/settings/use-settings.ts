@@ -1,5 +1,7 @@
-import {useBootstrapDataStore} from '@ui/bootstrap-data/bootstrap-data-store';
+// import {useBootstrapDataStore} from '@ui/bootstrap-data/bootstrap-data-store';
 
 export function useSettings() {
-  return useBootstrapDataStore(s => s.data.settings);
+  return {themes: {
+      default_id: 'light',
+    }};
 }

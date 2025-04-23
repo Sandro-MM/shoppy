@@ -1,3 +1,4 @@
+'use client'
 import {createContext, Key} from 'react';
 
 export interface TreeContextValue {

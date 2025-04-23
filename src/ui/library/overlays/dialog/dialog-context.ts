@@ -1,3 +1,4 @@
+'use client'
 import React, {ComponentPropsWithRef, useContext} from 'react';
 
 export type DialogType = 'modal' | 'popover' | 'tray' | 'component';

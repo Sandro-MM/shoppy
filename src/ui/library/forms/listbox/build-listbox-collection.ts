@@ -1,3 +1,4 @@
+'use client'
 import {Children, isValidElement, ReactElement, ReactNode} from 'react';
 import memoize from 'nano-memoize';
 import {ListboxItemProps} from './item';

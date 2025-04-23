@@ -1,5 +1,5 @@
+'use client'
 import React, {RefObject} from 'react';
-
 export interface TabsContext {
   selectedTab: number;
   setSelectedTab: (newTab: number) => void;
