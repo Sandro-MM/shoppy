@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { ButtonColor, ButtonVariant, getSharedButtonStyle } from './get-shared-button-style';
 import { createEventHandler } from '@ui/utils/dom/create-event-handler';
+import {Button} from "@ui/buttons/button";
 
 export interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'color'> {
   color?: ButtonColor;
@@ -81,11 +82,11 @@ export const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, Butt
                 passHref
                 legacyBehavior
             >
-              <a
+              <div
                   ref={ref as any}
-                  target={target}
+
                   rel={rel}
-                  download={download}
+
                   className={sharedClassName}
                   onPointerDown={createEventHandler(onPointerDown)}
                   onPointerUp={createEventHandler(onPointerUp)}
@@ -94,7 +95,7 @@ export const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, Butt
                   {...domProps}
               >
                 {children}
-              </a>
+              </div>
             </Link>
         );
       }
