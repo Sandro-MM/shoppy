@@ -44,7 +44,6 @@ type ModalProps = {
 type ComponentProps = {
   type: 'component';
   mobileType?: 'tray' | 'modal' | 'popover' | 'component';
-  alwaysVisible: boolean;
   placement?: Placement;
 }
 
