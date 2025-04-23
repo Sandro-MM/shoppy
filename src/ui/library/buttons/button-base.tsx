@@ -82,11 +82,11 @@ export const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, Butt
                 passHref
                 legacyBehavior
             >
-              <div
+              <button
                   ref={ref as any}
-
+                  target={target}
                   rel={rel}
-
+                  download={download}
                   className={sharedClassName}
                   onPointerDown={createEventHandler(onPointerDown)}
                   onPointerUp={createEventHandler(onPointerUp)}
@@ -95,7 +95,7 @@ export const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, Butt
                   {...domProps}
               >
                 {children}
-              </div>
+              </button>
             </Link>
         );
       }
