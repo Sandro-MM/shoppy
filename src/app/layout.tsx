@@ -4,17 +4,18 @@ import "./globals.css";
 import {ThemeProvider} from "@ui/themes/theme-provider";
 import {fetchThemeData} from "@ui/bootstrap-data/fetch-settings-data";
 import {BootstrapProvider} from "@ui/bootstrap-data/bootstrap-provider";
+import {BootstrapData} from "@ui/bootstrap-data/bootstrap-data";
 
 export default async function RootLayout({
                                               children,
                                           }: {
     children: React.ReactNode;
 }) {
-    const bootstrapData = await fetchThemeData();
+    const bootstrapData:BootstrapData | null = await fetchThemeData();
 
     return (
         <html lang="en">
-        <body>
+        <body className={'text-text-main'}>
         <BootstrapProvider data={bootstrapData}>
             <ThemeProvider>{children}</ThemeProvider>
         </BootstrapProvider>
