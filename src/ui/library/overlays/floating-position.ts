@@ -14,6 +14,7 @@ import {
 } from '@floating-ui/react-dom';
 import {CSSProperties, Ref, useMemo, useRef} from 'react';
 import {mergeRefs} from 'react-merge-refs';
+import {a} from "framer-motion/dist/types.d-B50aGbjN";
 
 interface Props {
   floatingWidth?: 'auto' | 'matchTrigger';

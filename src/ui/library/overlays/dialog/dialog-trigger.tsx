@@ -119,8 +119,28 @@ export function DialogTrigger(props: Props) {
   }
 
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const {x, y, reference, strategy, refs} = useFloatingPosition({
-    ...props,
+  const {
+    floatingWidth,
+    ref,
+    placement,
+    offset,
+    showArrow,
+    maxHeight,
+    shiftMainAxis,
+    shiftCrossAxis,
+    fallbackPlacements
+  } = props;
+
+  const { x, y, reference, strategy, refs } = useFloatingPosition({
+    floatingWidth,
+    ref,
+    placement,
+    offset,
+    showArrow,
+    maxHeight,
+    shiftMainAxis,
+    shiftCrossAxis,
+    fallbackPlacements,
     disablePositioning: type === 'modal',
   });
 
@@ -197,7 +217,7 @@ export function DialogTrigger(props: Props) {
       labelId,
       descriptionId,
       isDismissable: type === 'component' ? false : isDismissable,
-      close : type === 'component' ? false : close,
+      close: type === 'component' ? () => {} : close,
       value,
       initialValue: initialValueRef.current,
       setValue,
