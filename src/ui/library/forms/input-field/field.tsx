@@ -128,11 +128,12 @@ interface AppendProps {
   style: InputFieldStyle['append'];
   disabled?: boolean;
 }
-function Append({children, style, disabled}: AppendProps) {
+function Append({ children, style, disabled }: AppendProps) {
+  if (!React.isValidElement(children)) return null;
+
   return React.cloneElement(children, {
     ...children.props,
     disabled: children.props.disabled || disabled,
-    // make sure append styles are not overwritten with empty values
     ...removeEmptyValuesFromObject(style),
   });
 }
