@@ -99,9 +99,9 @@ export function Chip(props: ChipProps) {
 
   if (errorMessage && adornment) {
     adornment = (
-      <Tooltip label={errorMessage} variant="danger">
-        {adornment}
-      </Tooltip>
+        <Tooltip label={errorMessage as string} variant="danger">
+          {adornment}
+        </Tooltip>
     );
   }
 
