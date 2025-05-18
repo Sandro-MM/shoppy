@@ -12,7 +12,6 @@ import {ButtonBase} from '@ui/buttons/button-base';
 import {CancelFilledIcon} from './cancel-filled-icon';
 import {WarningIcon} from '@ui/icons/material/Warning';
 import {Tooltip} from '@ui/tooltip/tooltip';
-import * as Path from "path";
 
 export interface ChipProps {
   onRemove?: () => void;
@@ -31,7 +30,7 @@ export interface ChipProps {
   color?: 'chip' | 'primary' | 'danger' | 'positive';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   elementType?: 'div' | 'a' | JSXElementConstructor<any>;
-  to?: string | Partial<Path>;
+  to?: string | URL;
   onClick?: (e: React.MouseEvent) => void;
 }
 export function Chip(props: ChipProps) {
