@@ -50,10 +50,10 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(
           data-testid={inputTestId}
           ref={inputObjRef}
           {...(inputProps as any)}
-          rows={
+          rows = {
             isTextArea
-              ? (inputProps as HTMLProps<HTMLTextAreaElement>).rows || 4
-              : undefined
+                ? (inputProps as unknown as HTMLProps<HTMLTextAreaElement>).rows || 4
+                : undefined
           }
           className={inputFieldClassNames.input}
         />
