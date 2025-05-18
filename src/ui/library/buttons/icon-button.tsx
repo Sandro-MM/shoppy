@@ -33,7 +33,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       getButtonSizeStyle(size, {padding, equalWidth, variant}),
       className,
       badge && 'relative',
-      other.disabled && other.to && 'pointer-events-none text-disabled',
+      other.disabled && 'pointer-events-none text-disabled',
     );
 
     return (
