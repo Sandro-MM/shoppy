@@ -78,7 +78,9 @@ export function Item({
         onSelected?.();
         onClick?.(e);
       }}
-      ref={node => (listItemsRef.current[index] = node)}
+      ref={(node: HTMLDivElement | null) => {
+        listItemsRef.current[index] = node;
+      }}
       id={`${listboxId}-${index}`}
       role={role === 'menu' ? 'menuitem' : 'option'}
       tabIndex={virtualFocus ? undefined : tabIndex}
