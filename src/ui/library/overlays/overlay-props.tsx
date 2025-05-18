@@ -1,16 +1,19 @@
-'use client'
+'use client';
 import {
   CSSProperties,
   PointerEventHandler,
   ReactElement,
   Ref,
   RefObject,
+  HTMLAttributes,
 } from 'react';
 import {FocusScopeProps} from '@react-aria/focus';
 import {Placement, VirtualElement} from '@floating-ui/react-dom';
 
 export interface OverlayProps
-  extends Omit<FocusScopeProps, 'children' | 'contain'> {
+    extends Omit<FocusScopeProps, 'children' | 'contain'>,
+        HTMLAttributes<HTMLDivElement>
+{
   children: ReactElement;
   style?: CSSProperties;
   isDismissable: boolean;
