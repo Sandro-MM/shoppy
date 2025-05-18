@@ -132,11 +132,13 @@ interface AppendProps {
 function Append({ children, style, disabled }: AppendProps) {
   if (!isValidElement(children)) return null;
 
+  const element = children as ReactElement<any>;
+
   const props = {
-    ...children.props,
-    disabled: children.props.disabled || disabled,
+    ...element.props,
+    disabled: element.props.disabled || disabled,
     ...removeEmptyValuesFromObject(style),
   };
 
-  return React.cloneElement(children, props);
+  return React.cloneElement(element, props);
 }
