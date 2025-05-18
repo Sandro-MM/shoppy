@@ -25,7 +25,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'text',
       disabled,
       elementType,
-      to,
       replace,
       href,
       download,
@@ -45,7 +44,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         radius={radius}
         variant={variant}
         disabled={disabled}
-        to={disabled ? undefined : to}
         href={disabled ? undefined : href}
         download={disabled ? undefined : download}
         elementType={disabled ? undefined : elementType}
