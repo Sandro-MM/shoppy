@@ -102,14 +102,16 @@ const childrenToCollection = memoize(
 
     Children.forEach(reactChildren, (child, childIndex) => {
       if (!isValidElement(child)) return;
-      if (child.type === Section) {
-        Children.forEach(
-          child.props.children,
-          (nestedChild, nestedChildIndex) => {
-            setOption(nestedChild, child, childIndex, nestedChildIndex);
-          },
-        );
-      } else {
+        if (child.type === Section) {
+            if (isValidElement(child) && child.props.children) {
+                Children.forEach(
+                    child.props.children,
+                    (nestedChild, nestedChildIndex) => {
+                        setOption(nestedChild, child, childIndex, nestedChildIndex);
+                    }
+                );
+            }
+        } else {
         setOption(child as ReactElement<ListboxItemProps>);
       }
     });
