@@ -1,5 +1,5 @@
 'use client'
-import React, {ComponentPropsWithoutRef, ReactElement, ReactNode} from 'react';
+import React, {ComponentPropsWithoutRef, isValidElement, ReactElement, ReactNode} from 'react';
 import {Adornment} from '@ui/forms/input-field/adornment';
 import {InputFieldStyle} from '@ui/forms/input-field/get-input-field-class-names';
 import {BaseFieldProps} from '@ui/forms/input-field/base-field-props';
@@ -129,11 +129,13 @@ interface AppendProps {
   disabled?: boolean;
 }
 function Append({ children, style, disabled }: AppendProps) {
-  if (!React.isValidElement(children)) return null;
+  if (!isValidElement(children)) return null;
 
-  return React.cloneElement(children, {
+  const props = {
     ...children.props,
     disabled: children.props.disabled || disabled,
     ...removeEmptyValuesFromObject(style),
-  });
+  };
+
+  return React.cloneElement(children, props);
 }
