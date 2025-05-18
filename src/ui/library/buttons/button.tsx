@@ -61,19 +61,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 type InlineIconProps = {
-  icon: ReactElement;
-  position: 'start' | 'end';
+    icon: ReactElement<any>;
+    position: 'start' | 'end';
   size?: IconSize | null;
 };
-function InlineIcon({icon, position, size}: InlineIconProps): ReactElement {
-  const className = clsx(
-    'm-auto',
-    {
-      '-ml-4 mr-8': position === 'start',
-      '-mr-4 ml-8': position === 'end',
-    },
-    icon.props.className,
-  );
-  // don't override size, if it was explicitly set on the icon
-  return React.cloneElement(icon, {className, size: icon.props.size ?? size});
+function InlineIcon({ icon, position, size }: InlineIconProps): ReactElement {
+    const { className: iconClassName, size: iconSize } = icon.props as any;
+    const className = clsx(
+        'm-auto',
+        {
+            '-ml-4 mr-8': position === 'start',
+            '-mr-4 ml-8': position === 'end',
+        },
+        iconClassName,
+    );
+    return React.cloneElement(icon, { className, size: iconSize ?? size });
 }
