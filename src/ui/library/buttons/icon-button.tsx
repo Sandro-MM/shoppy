@@ -5,7 +5,7 @@ import {ButtonBase, ButtonBaseProps} from './button-base';
 import {BadgeProps} from '@ui/badge/badge';
 
 export interface IconButtonProps extends ButtonBaseProps {
-  children: ReactElement;
+  children: ReactElement<any>;
   padding?: string;
   size?: ButtonSize | null;
   iconSize?: ButtonSize | null;
