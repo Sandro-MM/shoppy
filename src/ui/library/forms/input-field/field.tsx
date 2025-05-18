@@ -124,10 +124,11 @@ function Label({
 }
 
 interface AppendProps {
-  children: ReactElement;
+  children: ReactNode;
   style: InputFieldStyle['append'];
   disabled?: boolean;
 }
+
 function Append({ children, style, disabled }: AppendProps) {
   if (!isValidElement(children)) return null;
 
