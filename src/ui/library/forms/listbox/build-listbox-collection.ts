@@ -101,16 +101,13 @@ const childrenToCollection = memoize(
     };
 
     Children.forEach(reactChildren, (child, childIndex) => {
-      if (!isValidElement(child)) return;
-        if (child.type === Section) {
-            if (isValidElement(child) && child.props.children) {
+        if (isReactElementWithChildren(child)) {
                 Children.forEach(
                     child.props.children,
                     (nestedChild, nestedChildIndex) => {
                         setOption(nestedChild, child, childIndex, nestedChildIndex);
                     }
                 );
-            }
         } else {
         setOption(child as ReactElement<ListboxItemProps>);
       }
@@ -131,4 +128,11 @@ function getTextLabel(item: ReactElement<ListboxItemProps>): string {
   }
 
   return `${content}` || '';
+}
+
+
+function isReactElementWithChildren<P = any>(
+    node: unknown
+): node is ReactElement<P> & { props: { children?: ReactNode } } {
+    return isValidElement(node) && !!(node as any).props?.children;
 }
